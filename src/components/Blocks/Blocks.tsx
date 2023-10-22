@@ -1,6 +1,5 @@
 import React from "react";
 
-import { type LinkProps } from "../Link.js";
 import {
   defaultBlockMapper,
   LinkComponentMapper,
@@ -13,7 +12,8 @@ import {
 
 import { Block } from "./Block.js";
 
-import type { BlockObject } from "../index.js";
+import type { BlockObject } from "../../libs/notion/blocks/blocks.js";
+import type { LinkProps } from "../Link.js";
 
 type Props = {
   blocks: Array<BlockObject>;
