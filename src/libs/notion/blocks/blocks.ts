@@ -156,6 +156,43 @@ export const listBlockChildren = async (
   return [];
 };
 
+export type BlockObject =
+  | AudioBlockObject
+  | BookmarkBlockObject
+  | BreadcrumbBlockObject
+  | BulletedListBlockObject
+  | BulletedListItemBlockObject
+  | CalloutBlockObject
+  | ChildDatabaseBlockObject
+  | ChildPageBlockObject
+  | CodeBlockObject
+  | ColumnBlockObject
+  | ColumnListBlockObject
+  | DividerBlockObject
+  | EmbedBlockObject
+  | EquationBlockObject
+  | FileBlockObject
+  | Heading1BlockObject
+  | Heading2BlockObject
+  | Heading3BlockObject
+  | NumberedListBlockObject
+  | NumberedListItemBlockObject
+  | ImageBlockObject
+  | LinkPreviewBlockObject
+  | LinkToPageBlockObject
+  | ParagraphBlockObject
+  | PdfBlockObject
+  | QuoteBlockObject
+  | SyncedBlockBlockObject
+  | TableBlockObject
+  | TableOfContentsBlockObject
+  | TableRowBlockObject
+  | TemplateBlockObject
+  | ToDoBlockObject
+  | ToggleBlockObject
+  | UnsupportedBlockObject
+  | VideoBlockObject;
+
 export const fetchBlock = async (
   blockId: string
 ): Promise<BlockObject | null> => {
@@ -379,42 +416,3 @@ export const convertResponseToBlock = async (
     }
   }
 };
-
-const res = await fetchBlocks("2712e341754a41aea9ce4c0bb4b18c52");
-console.log(JSON.stringify(res, null, 2));
-export type BlockObject =
-  | AudioBlockObject
-  | BookmarkBlockObject
-  | BreadcrumbBlockObject
-  | BulletedListBlockObject
-  | BulletedListItemBlockObject
-  | CalloutBlockObject
-  | ChildDatabaseBlockObject
-  | ChildPageBlockObject
-  | CodeBlockObject
-  | ColumnBlockObject
-  | ColumnListBlockObject
-  | DividerBlockObject
-  | EmbedBlockObject
-  | EquationBlockObject
-  | FileBlockObject
-  | Heading1BlockObject
-  | Heading2BlockObject
-  | Heading3BlockObject
-  | NumberedListBlockObject
-  | NumberedListItemBlockObject
-  | ImageBlockObject
-  | LinkPreviewBlockObject
-  | LinkToPageBlockObject
-  | ParagraphBlockObject
-  | PdfBlockObject
-  | QuoteBlockObject
-  | SyncedBlockBlockObject
-  | TableBlockObject
-  | TableOfContentsBlockObject
-  | TableRowBlockObject
-  | TemplateBlockObject
-  | ToDoBlockObject
-  | ToggleBlockObject
-  | UnsupportedBlockObject
-  | VideoBlockObject;
