@@ -1,116 +1,52 @@
-import { randomUUID } from "crypto";
-
 import { isFullBlock } from "@notionhq/client";
 
-import { callAPIWithBackOff, notNullNorUndefined } from "../../utils.js";
+import {
+  callAPIWithBackOff,
+  generateUUID,
+  notNullNorUndefined,
+} from "../../utils.js";
 import { notion } from "../auth.js";
 
-import { convertAudioResponseToBlock, type AudioBlockObject } from "./audio.js";
-import {
-  convertBookmarkResponseToBlock,
-  type BookmarkBlockObject,
-} from "./bookmark.js";
-import {
-  convertBreadcrumbResponseToBlock,
-  type BreadcrumbBlockObject,
-} from "./breadcrumb.js";
+import { convertAudioResponseToBlock } from "./audio.js";
+import { convertBookmarkResponseToBlock } from "./bookmark.js";
+import { convertBreadcrumbResponseToBlock } from "./breadcrumb.js";
 import { convertBulletedListItemResponseToBlock } from "./bulletedListItem.js";
-import {
-  convertCalloutResponseToBlock,
-  type CalloutBlockObject,
-} from "./callout.js";
-import {
-  convertChildDatabaseResponseToBlock,
-  type ChildDatabaseBlockObject,
-} from "./childDatabase.js";
-import {
-  convertChildPageResponseToBlock,
-  type ChildPageBlockObject,
-} from "./childPage.js";
-import { convertCodeResponseToBlock, type CodeBlockObject } from "./code.js";
-import {
-  convertColumnResponseToBlock,
-  type ColumnBlockObject,
-} from "./column.js";
-import {
-  convertColumnListResponseToBlock,
-  type ColumnListBlockObject,
-} from "./columnList.js";
-import {
-  convertDividerResponseToBlock,
-  type DividerBlockObject,
-} from "./divider.js";
-import { convertEmbedResponseToBlock, type EmbedBlockObject } from "./embed.js";
-import {
-  convertEquationResponseToBlock,
-  type EquationBlockObject,
-} from "./equation.js";
-import { convertFileResponseToBlock, type FileBlockObject } from "./file.js";
-import {
-  convertHeading1ResponseToBlock,
-  type Heading1BlockObject,
-} from "./heading1.js";
-import {
-  convertHeading2ResponseToBlock,
-  type Heading2BlockObject,
-} from "./heading2.js";
-import {
-  convertHeading3ResponseToBlock,
-  type Heading3BlockObject,
-} from "./heading3.js";
-import { convertImageResponseToBlock, type ImageBlockObject } from "./image.js";
-import {
-  convertLinkPreviewResponseToBlock,
-  type LinkPreviewBlockObject,
-} from "./linkPreview.js";
-import {
-  convertLinkToPageResponseToBlock,
-  type LinkToPageBlockObject,
-} from "./linkToPage.js";
+import { convertCalloutResponseToBlock } from "./callout.js";
+import { convertChildDatabaseResponseToBlock } from "./childDatabase.js";
+import { convertChildPageResponseToBlock } from "./childPage.js";
+import { convertCodeResponseToBlock } from "./code.js";
+import { convertColumnResponseToBlock } from "./column.js";
+import { convertColumnListResponseToBlock } from "./columnList.js";
+import { convertDividerResponseToBlock } from "./divider.js";
+import { convertEmbedResponseToBlock } from "./embed.js";
+import { convertEquationResponseToBlock } from "./equation.js";
+import { convertFileResponseToBlock } from "./file.js";
+import { convertHeading1ResponseToBlock } from "./heading1.js";
+import { convertHeading2ResponseToBlock } from "./heading2.js";
+import { convertHeading3ResponseToBlock } from "./heading3.js";
+import { convertImageResponseToBlock } from "./image.js";
+import { convertLinkPreviewResponseToBlock } from "./linkPreview.js";
+import { convertLinkToPageResponseToBlock } from "./linkToPage.js";
 import { convertNumberedListItemResponseToBlock } from "./numberedListItem.js";
-import {
-  convertParagraphResponseToBlock,
-  type ParagraphBlockObject,
-} from "./paragraph.js";
-import { convertPdfResponseToBlock, type PdfBlockObject } from "./pdf.js";
-import { convertQuoteResponseToBlock, type QuoteBlockObject } from "./quote.js";
-import {
-  convertSyncedBlockResponseToBlock,
-  type SyncedBlockBlockObject,
-} from "./syncedBlock.js";
-import { convertTableResponseToBlock, type TableBlockObject } from "./table.js";
-import {
-  convertTableRowResponseToBlock,
-  type TableRowBlockObject,
-} from "./table_row.js";
-import {
-  convertTableOfContentsResponseToBlock,
-  type TableOfContentsBlockObject,
-} from "./tableOfContents.js";
-import {
-  convertTemplateResponseToBlock,
-  type TemplateBlockObject,
-} from "./template.js";
-import { convertToDoResponseToBlock, type ToDoBlockObject } from "./toDo.js";
-import {
-  convertToggleResponseToBlock,
-  type ToggleBlockObject,
-} from "./toggle.js";
-import {
-  convertUnsupportedResponseToBlock,
-  type UnsupportedBlockObject,
-} from "./unsupported.js";
-import { convertVideoResponseToBlock, type VideoBlockObject } from "./video.js";
+import { convertParagraphResponseToBlock } from "./paragraph.js";
+import { convertPdfResponseToBlock } from "./pdf.js";
+import { convertQuoteResponseToBlock } from "./quote.js";
+import { convertSyncedBlockResponseToBlock } from "./syncedBlock.js";
+import { convertTableResponseToBlock } from "./table.js";
+import { convertTableRowResponseToBlock } from "./table_row.js";
+import { convertTableOfContentsResponseToBlock } from "./tableOfContents.js";
+import { convertTemplateResponseToBlock } from "./template.js";
+import { convertToDoResponseToBlock } from "./toDo.js";
+import { convertToggleResponseToBlock } from "./toggle.js";
+import { convertUnsupportedResponseToBlock } from "./unsupported.js";
+import { convertVideoResponseToBlock } from "./video.js";
 
 import type {
+  BlockObject,
   BulletedListBlockObject,
-  BulletedListItemBlockObject,
-} from "./bulletedListItem.js";
-import type {
+  ListBlockChildrenResponseResults,
   NumberedListBlockObject,
-  NumberedListItemBlockObject,
-} from "./numberedListItem.js";
-import type { ListBlockChildrenResponseResults } from "../../../types/notion.js";
+} from "../../../types/notion.js";
 import type {
   BlockObjectResponse,
   GetBlockParameters,
@@ -155,43 +91,6 @@ export const listBlockChildren = async (
   }
   return [];
 };
-
-export type BlockObject =
-  | AudioBlockObject
-  | BookmarkBlockObject
-  | BreadcrumbBlockObject
-  | BulletedListBlockObject
-  | BulletedListItemBlockObject
-  | CalloutBlockObject
-  | ChildDatabaseBlockObject
-  | ChildPageBlockObject
-  | CodeBlockObject
-  | ColumnBlockObject
-  | ColumnListBlockObject
-  | DividerBlockObject
-  | EmbedBlockObject
-  | EquationBlockObject
-  | FileBlockObject
-  | Heading1BlockObject
-  | Heading2BlockObject
-  | Heading3BlockObject
-  | NumberedListBlockObject
-  | NumberedListItemBlockObject
-  | ImageBlockObject
-  | LinkPreviewBlockObject
-  | LinkToPageBlockObject
-  | ParagraphBlockObject
-  | PdfBlockObject
-  | QuoteBlockObject
-  | SyncedBlockBlockObject
-  | TableBlockObject
-  | TableOfContentsBlockObject
-  | TableRowBlockObject
-  | TemplateBlockObject
-  | ToDoBlockObject
-  | ToggleBlockObject
-  | UnsupportedBlockObject
-  | VideoBlockObject;
 
 export const fetchBlock = async (
   blockId: string
@@ -249,7 +148,7 @@ export const wrapListItems = (
 
       // For the first time,
       // create a list object and add list_item to the list.
-      const id = randomUUID();
+      const id = generateUUID();
       if (
         // bulleted_list_item
         currBlock.type === "bulleted_list_item" &&

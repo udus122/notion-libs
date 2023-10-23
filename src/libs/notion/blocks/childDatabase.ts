@@ -1,15 +1,7 @@
 import { fetchDatabase } from "../databases.js";
 
-import type {
-  ChildDatabaseBlockObjectResponse,
-  DatabaseObjectResponse,
-} from "@notionhq/client/build/src/api-endpoints.js";
-
-export type ChildDatabaseBlockObject = ChildDatabaseBlockObjectResponse & {
-  child_database: {
-    database?: DatabaseObjectResponse | null;
-  };
-};
+import type { ChildDatabaseBlockObject } from "../../../types/notion.js";
+import type { ChildDatabaseBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints.js";
 
 export const convertChildDatabaseResponseToBlock = async (
   block: ChildDatabaseBlockObjectResponse

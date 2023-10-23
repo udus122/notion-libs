@@ -2,13 +2,8 @@ import { convertResponseToRichText } from "../richText/richText.js";
 
 import { fetchBlocks } from "./blocks.js";
 
-import type { BlockObject } from "./blocks.js";
-import type { RichTextItem } from "../richText/richTextItem.js";
+import type { ToDoBlockObject } from "../../../types/notion.js";
 import type { ToDoBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints.js";
-
-export type ToDoBlockObject = ToDoBlockObjectResponse & {
-  to_do: { rich_text: Array<RichTextItem>; children?: Array<BlockObject> };
-};
 
 export const convertToDoResponseToBlock = async (
   block: ToDoBlockObjectResponse

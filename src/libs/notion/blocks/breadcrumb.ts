@@ -1,20 +1,11 @@
 import { fetchAllParents } from "../parent.js";
 
+import type { BreadcrumbBlockObject } from "../../../types/notion.js";
 import type {
   BreadcrumbBlockObjectResponse,
   DatabaseObjectResponse,
   PageObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints.js";
-import type { Overwrite } from "src/types/utils.js";
-
-export type BreadcrumbBlockObject = Overwrite<
-  BreadcrumbBlockObjectResponse,
-  {
-    breadcrumb: {
-      parents: Array<PageObjectResponse | DatabaseObjectResponse>;
-    };
-  }
->;
 
 export const convertBreadcrumbResponseToBlock = async (
   block: BreadcrumbBlockObjectResponse
@@ -31,5 +22,5 @@ export const convertBreadcrumbResponseToBlock = async (
       ...block.breadcrumb,
       parents,
     },
-  };
+  } satisfies BreadcrumbBlockObject;
 };

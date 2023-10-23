@@ -1,8 +1,6 @@
-import {
-  convertResponseToRichTextItem,
-  type RichTextItem,
-} from "./richTextItem.js";
+import { convertResponseToRichTextItem } from "./richTextItem.js";
 
+import type { RichTextItem } from "../../../types/notion.js";
 import type { RichTextItemResponse } from "@notionhq/client/build/src/api-endpoints.js";
 
 export const convertResponseToRichText = async (

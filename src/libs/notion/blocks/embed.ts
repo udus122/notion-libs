@@ -1,21 +1,8 @@
 import { fetchOembed } from "../../../libs/utils.js";
 import { convertResponseToRichText } from "../richText/richText.js";
 
-import type { RichTextItem } from "../richText/richTextItem.js";
-import type {
-  LinkTypeData,
-  PhotoTypeData,
-  VideoTypeData,
-  RichTypeData,
-} from "@extractus/oembed-extractor";
+import type { EmbedBlockObject } from "../../../types/notion.js";
 import type { EmbedBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints.js";
-
-export type EmbedBlockObject = EmbedBlockObjectResponse & {
-  embed: {
-    caption: Array<RichTextItem>;
-    oembed?: LinkTypeData | PhotoTypeData | VideoTypeData | RichTypeData;
-  };
-};
 
 export const convertEmbedResponseToBlock = async (
   block: EmbedBlockObjectResponse

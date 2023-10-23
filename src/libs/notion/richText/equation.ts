@@ -1,16 +1,13 @@
-import { randomUUID } from "crypto";
+import { generateUUID } from "../../utils.js";
 
+import type { EquationRichTextItem } from "../../../types/notion.js";
 import type { EquationRichTextItemResponse } from "@notionhq/client/build/src/api-endpoints.js";
-
-export type EquationRichTextItem = EquationRichTextItemResponse & {
-  id?: string;
-};
 
 export const convertEquationRichTextItemResponse = async (
   response: EquationRichTextItemResponse
 ) => {
   return {
     ...response,
-    id: randomUUID(),
-  };
+    id: generateUUID(),
+  } satisfies EquationRichTextItem;
 };

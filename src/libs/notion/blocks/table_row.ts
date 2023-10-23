@@ -1,16 +1,7 @@
 import { convertResponseToRichText } from "../richText/richText.js";
 
-import type { RichTextItem } from "../richText/richTextItem.js";
+import type { TableRowBlockObject } from "../../../types/notion.js";
 import type { TableRowBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints.js";
-
-export type TableRowBlockObject = TableRowBlockObjectResponse & {
-  table_row: {
-    cells: Array<Array<RichTextItem>>;
-  };
-};
-
-export type TableCellBlockObjectComponent =
-  TableRowBlockObject["table_row"]["cells"][number];
 
 export const convertTableRowResponseToBlock = async (
   block: TableRowBlockObjectResponse

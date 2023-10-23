@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+
 import {
   extract as extractSiteMeta,
   type ArticleData,
@@ -119,4 +121,8 @@ export const fetchOembed = async (
       error: error as Error,
     };
   }
+};
+
+export const generateUUID = (): string => {
+  return randomUUID() as string;
 };

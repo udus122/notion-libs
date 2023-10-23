@@ -1,18 +1,7 @@
 import { fetchBlocks } from "./blocks.js";
 
-import type { BlockObject } from "./blocks.js";
+import type { NumberedListItemBlockObject } from "../../../types/notion.js";
 import type { NumberedListItemBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints.js";
-
-export type NumberedListBlockObject = {
-  id: string;
-  numbered_list: { items: Array<NumberedListItemBlockObject> };
-  type: "numbered_list";
-};
-
-export type NumberedListItemBlockObject =
-  NumberedListItemBlockObjectResponse & {
-    numbered_list_item: { children?: Array<BlockObject> };
-  };
 
 export const convertNumberedListItemResponseToBlock = async (
   block: NumberedListItemBlockObjectResponse

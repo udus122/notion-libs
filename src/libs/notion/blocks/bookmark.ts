@@ -1,16 +1,8 @@
 import { fetchSiteMeta } from "../../../libs/utils.js";
 import { convertResponseToRichText } from "../richText/richText.js";
 
-import type { RichTextItem } from "../richText/richTextItem.js";
-import type { ArticleData } from "@extractus/article-extractor";
+import type { BookmarkBlockObject } from "../../../types/notion.js";
 import type { BookmarkBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints.js";
-
-export type BookmarkBlockObject = BookmarkBlockObjectResponse & {
-  bookmark: {
-    site_meta?: ArticleData;
-    caption: Array<RichTextItem>;
-  };
-};
 
 export const convertBookmarkResponseToBlock = async (
   block: BookmarkBlockObjectResponse
