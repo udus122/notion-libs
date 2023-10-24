@@ -1,1 +1,1 @@
-# notion-component
+# notion-libs
