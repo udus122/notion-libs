@@ -22,6 +22,7 @@ export const retrieveDatabase = async (
   }
   return;
 };
+
 export const fetchDatabase = async (databaseId: string) => {
   const database = await retrieveDatabase({ database_id: databaseId });
   if (!database) {
